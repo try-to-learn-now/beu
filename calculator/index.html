@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BEU Notes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>SGPA Calculator (Currently Under development. Soon we will add all branch and registration no based checker) Stay connected with us☺️</h1>
+    <div class="container selection-container" id="home-container">
+        <h2>Select Your Branch and Semester</h2>
+        <div class="form-group-container">
+            <div class="form-group">
+                <label for="branch" class="label-bold">Branch:</label>
+                <select id="branch">
+                    <option value="CS">Computer Science</option>
+                    <option value="ECE">Electronics and Communication</option>
+                    <option value="EE">Electrical Engineering</option>
+                    <option value="E.E" hidden>Electronics Engineering(Vlsi)</option>
+                    <option value="CV" hidden>Civil Engineering</option>
+                    <option value="ME" hidden>Mechanical Engineering</option>
+                    <option value="CSI" hidden>Computer Science(IT)</option>
+                    <option value="CSIO" hidden>Computer Science(IOT)</option>
+                    <option value="CSAI" hidden>Computer Science(AI)</option>
+                    <option value="CSAM" hidden>Computer Science(AI + ML)</option>
+                    <option value="CSDS" hidden>Computer Science(Data Science)</option>
+                    <option value="CSS" hidden>Computer Science(Cyber Security)</option>
+                    <option value="CSN" hidden>Computer Science(Networks)</option>
+                    <option value="EEE" hidden>Electrical and Electronics</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semester" class="label-bold">Semester:</label>
+                <select id="semester">
+                    <option value="1">Semester 1(2024-28)</option>
+                    <option value="2">Semester 2(2024-28)</option>
+                    <option value="a">Semester 1(old)</option>
+                    <option value="b">Semester 2(old)</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+        </div>
+        <button id="load-subjects">Load Subjects</button>
+    </div>
+
+    <div class="container" id="subject-container" style="display:none;">
+        <h2>Theory Subjects</h2>
+        <table id="theory-table">
+            <thead>
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>ESE</th>
+                    <th>IA</th>
+                    <th>Total</th>
+                    <th>Grade</th>
+                    <th>Credit</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        
+        <h2>Practical Subjects</h2>
+        <table id="practical-table">
+            <thead>
+                <tr>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>ESE</th>
+                    <th>IA</th>
+                    <th>Total</th>
+                    <th>Grade</th>
+                    <th>Credit</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        
+        <button id="calculate-cgpa" class="center-button">Calculate SGPA</button>
+        <div id="results" style="display:none;"></div>
+        <div id="greeting-container" class="greeting-container" style="display:none;"></div>
+        <div id="remarks-container" class="remarks-container text-center" style="display:none;"></div>
+    </div>
+
+    <script src="subjectData.js"></script>
+    <script src="calculator.js"></script>
+</body>
+</html>

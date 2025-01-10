@@ -1,0 +1,178 @@
+/* Base Styles - Desktop Layout Applied on All Devices */body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #343a40;
+    margin: 20px 0;
+}
+
+.container {
+    width: 850px; /* Fixed width to maintain desktop look */
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.selection-container {
+    text-align: center;
+}
+
+.label-bold {    
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.form-group-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.form-group {
+    width: 45%; /* Keep form groups side-by-side */
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 85%;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    background-color: #004494;
+}
+
+button.center-button {
+    display: block;
+    margin: 20px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Set a fixed width for the subject name column with text wrapping */
+td.name {
+    width: 200px; /* Adjust width as needed */
+    overflow-wrap: break-word; /* Allows text to break onto the next line */
+    word-wrap: break-word;     /* Compatibility for older browsers */
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+/* SGPA Output Container */
+#results {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #495057;
+    text-align: center;
+}
+
+/* Greeting Message Container */
+#greeting-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e0f7fa;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    color: #00796b;
+    display: none; /* Hidden by default, shown after SGPA */
+}
+
+.remarks-container {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #d32f2f; /* Darker red color for text */
+    font-weight: bold;
+}
+
+.remarks-container strong {
+    display: block;
+    margin-bottom: 10px;
+    font-family: monospace;
+    color: #a94442;
+}
+
+.failed-subject-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+.failed-subject {
+    padding: 12px 20px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #721c24;
+    text-align: center;
+    width: calc(33% - 20px); /* Three-column layout */
+    box-sizing: border-box;
+    margin-bottom: 13px;
+}
