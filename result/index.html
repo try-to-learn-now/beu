@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1000, maximum-scale=1.0, user-scalable=no">
+    <title>BEU Result Scrapper</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Prevent text size adjustment and zooming */
+        html {
+            -webkit-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+        
+        /* Prevent input zoom */
+        input[type="text"],
+        select,
+        button {
+            font-size: 16px !important;
+            touch-action: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-section">
+            <div class="input-row">
+                <select id="semester" required data-validate="true">
+                    <option value="" disabled selected>Select Semester</option>
+                    <option value="1st">1st Semester</option>
+                    <option value="2nd">2nd Semester</option>
+                    <option value="3rd">3rd Semester</option>
+                    <option value="4th">4th Semester</option>
+                    <option value="5th">5th Semester</option>
+                    <option value="6th">6th Semester</option>
+                    <option value="7th">7th Semester</option>
+                    <option value="8th">8th Semester</option>
+                </select>
+
+                <select id="batch" required disabled data-validate="true">
+                    <option value="" disabled selected>Select Examination Year</option>
+                </select>
+
+                <div class="reg-input-container">
+                    <input type="text" 
+                           id="regNo" 
+                           placeholder="Enter Registration Number"
+                           maxlength="11"
+                           required
+                           data-validate="true"
+                           pattern="\d{11}"
+                           title="Please enter a valid 11-digit registration number">
+                    <button id="regNoHelp" class="help-button" title="Registration Number Format">?</button>
+                </div>
+            </div>
+            
+            <div class="button-row">
+                <button id="fetchButton">Get Result</button>
+            </div>
+        </div>
+        
+        <div id="message" class="message"></div>
+        <div id="results"></div>
+    </div>
+    <button id="printButton">Print Result</button>
+    <button id="creditButton" onclick="window.location.href='credit.html'">Credits</button>
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+        <span class="loading-text">Processing...</span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

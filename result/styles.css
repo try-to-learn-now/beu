@@ -1,0 +1,1136 @@
+/*
+    BEU Result Scrapper - Stylesheet
+    Version: 1.0
+    Description: Handles all styling including print layouts
+    Author: Ankit Kumar
+    Last Updated: 2024
+
+    Organization:
+    1. Base Styles
+       - Reset and defaults
+       - Container layouts
+       - Typography
+
+    2. Input Section
+       - Form controls
+       - Button styles
+       - Help button
+
+    3. Result Display
+       - Tables
+       - Headers
+       - Student info
+       - Marks display
+       - SGPA section
+
+    4. Print Styles
+       - Page settings
+       - Element visibility
+       - Color adjustments
+       - Watermark handling
+
+    5. Mobile Optimization
+       - Responsive layouts
+       - Touch interactions
+       - Input handling
+
+    6. Animations & Effects
+       - Transitions
+       - Hover states
+       - Gradients
+       - Shadows
+*/
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+html, body {
+    overflow-x: hidden;  /* Prevent horizontal scroll */
+    min-height: 100%;
+    width: 100%;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    padding: 20px;
+    margin: 0;
+    position: relative;  /* For proper fixed positioning */
+}
+
+.container {
+    width: 1000px;
+    margin: 20px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+    position: relative;  /* For proper z-index stacking */
+}
+
+/* Input Section */
+.input-section {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Input Row Container */
+.input-row {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+select,
+.reg-input-container {
+    flex: 1;
+    min-width: 0;
+}
+
+select,
+.reg-input-container input {
+    padding: 12px 16px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+select:hover,
+.reg-input-container input:hover {
+    border-color: #2196F3;
+    box-shadow: 0 4px 10px rgba(33, 150, 243, 0.1);
+}
+
+select:focus,
+.reg-input-container input:focus {
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    outline: none;
+    background: #ffffff;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 150px;
+    font-weight: bold;
+}
+
+#fetchButton {
+    background: linear-gradient(45deg, #00c853, #009624);
+    padding: 14px 30px;
+    font-weight: 600;
+    font-size: 16px;
+    min-width: 200px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+}
+
+#fetchButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 200, 83, 0.3);
+}
+
+#fetchButton:disabled {
+    background: linear-gradient(45deg, #ff9800, #f57c00);
+    cursor: wait;
+}
+
+/* Floating Print Button */
+#printButton {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(45deg, #2196F3, #1565C0);
+    color: white;
+    width: 30px;
+    height: 120px;
+    border-radius: 8px 0 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: -2px 0 10px rgba(33, 150, 243, 0.3);
+    transition: all 0.3s ease;
+    user-select: none;
+    touch-action: pan-y;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    padding: 0;
+}
+
+#printButton:hover {
+    width: 40px;
+    background: linear-gradient(45deg, #1976D2, #0D47A1);
+    box-shadow: -4px 0 15px rgba(33, 150, 243, 0.4);
+}
+
+#printButton:active {
+    background: linear-gradient(45deg, #1565C0, #0D47A1);
+    box-shadow: -2px 0 8px rgba(33, 150, 243, 0.2);
+}
+
+/* Hide print button during printing */
+@media print {
+    #printButton {
+        display: none;
+    }
+}
+
+/* Result Page */
+.result-page {
+    background: linear-gradient(135deg, #ffffff, #fafafa);
+    padding: 25px;
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    position: relative;
+}
+
+/* University Header */
+.university-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.university-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #000;
+    letter-spacing: 1px;
+}
+
+.semester-header {
+    color: #ff4400;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+/* Student Info Table */
+.student-info {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 2px solid #000000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.student-info th,
+.student-info td {
+    border: 1.5px solid #000000;
+    padding: 8px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.student-info th {
+    width: 150px;
+    background-color: #f5f5f5;
+    background: linear-gradient(to right, #f8f9fa, #f5f5f5);
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.student-name-cell {
+    color: #1565C0;
+}
+
+/* Marks Tables */
+.marks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    font-size: 12px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 2px solid #000000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.marks-table th {
+    background-color: #f5f5f5;
+    padding: 6px 4px;
+    text-align: center;
+    border: 1.5px solid #000000;
+    background: linear-gradient(to right, #f8f9fa, #f5f5f5);
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.marks-table td {
+    padding: 6px 4px;
+    text-align: center;
+    border: 1.5px solid #000000;
+    font-weight: 500;
+}
+
+.marks-table th:nth-child(1) { width: 12%; }
+.marks-table th:nth-child(2) { width: 40%; }
+.marks-table th:nth-child(3) { width: 10%; }
+.marks-table th:nth-child(4) { width: 10%; }
+.marks-table th:nth-child(5) { width: 10%; }
+.marks-table th:nth-child(6) { width: 8%; }
+.marks-table th:nth-child(7) { width: 10%; }
+
+.marks-table .subject-name {
+    text-align: left;
+    padding-left: 8px;
+}
+
+/* SGPA Table */
+.sgpa-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    border: 2px solid #000000;
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+.sgpa-table td {
+    padding: 8px;
+    font-size: 13px;
+}
+
+.sgpa-label {
+    width: 85%;
+    text-align: right;
+    border-right: 1.5px solid #000000;
+    background-color: #f5f5f5;
+    padding-right: 15px;
+}
+
+.sgpa-value {
+    width: 15%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2196F3;
+}
+
+/* Remarks Table */
+.remarks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 2px solid #000000;
+    transition: all 0.3s ease;
+}
+
+.remarks-table td {
+    padding: 8px;
+    font-size: 13px;
+}
+
+.remarks-label {
+    width: 15%;
+    vertical-align: top;
+    border-right: 1.5px solid #000000;
+    background-color: #f5f5f5;
+}
+
+/* Failed Subjects */
+.failed-subject-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    page-break-inside: avoid;
+}
+
+.failed-subject {
+    flex: 1;
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 12px;
+    min-width: 200px;
+    background: linear-gradient(45deg, #ffebee, #ffcdd2);
+    border: none;
+    box-shadow: 0 2px 5px rgba(198, 40, 40, 0.1);
+    transition: all 0.3s ease;
+}
+
+.pass-status {
+    color: #2e7d32;
+    font-size: 14px;
+    text-align: center;
+    padding: 8px;
+    background-color: #e8f5e9;
+    border-radius: 4px;
+    background: linear-gradient(45deg, #e8f5e9, #c8e6c9);
+    box-shadow: 0 2px 5px rgba(46, 125, 50, 0.1);
+}
+
+/* Publish Date Table */
+.publish-date-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 2px solid #000000;
+    transition: all 0.3s ease;
+}
+
+.publish-date-table th,
+.publish-date-table td {
+    padding: 6px;
+    border: 1.5px solid #000000;
+}
+
+.publish-date-table th {
+    width: 15%;
+    background-color: #f5f5f5;
+}
+
+/* Watermark */
+.watermark {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 100;
+    background: linear-gradient(45deg, rgba(255,255,255,0.97), rgba(255,255,255,0.95));
+    backdrop-filter: blur(4px);
+    border: 2px solid rgba(33, 150, 243, 0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.watermark a {
+    color: #1565C0;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 5px;
+}
+
+.watermark:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border-color: rgba(33, 150, 243, 0.5);
+}
+
+/* Print styles for watermark */
+@media print {
+    .watermark {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        background: none !important;
+        border: 2px solid #000000 !important;
+        box-shadow: none !important;
+        z-index: 9999 !important;
+        display: block !important;
+        opacity: 1 !important;
+    }
+
+    .watermark a {
+        color: #1565C0 !important;
+        padding: 10px;
+    }
+}
+
+/* Message */
+.message {
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.message:not(:empty) {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+/* Print Styles */
+@media print {
+    /* Base print settings */
+    body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        width: 210mm; /* A4 width */
+    }
+
+    .container {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 15px !important;
+        box-shadow: none !important;
+        background: white !important;
+    }
+
+    /* Hide non-printable elements */
+    .input-section,
+    #printButton,
+    #creditButton,
+    .message,
+    .help-button,
+    .button-container,
+    .button-row {
+        display: none !important;
+    }
+
+    /* Result page improvements */
+    .result-page {
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        padding: 15px !important;
+        margin: 0 !important;
+        border: none !important;
+        background: white !important;
+        box-shadow: none !important;
+    }
+
+    /* Table improvements */
+    .student-info,
+    .marks-table,
+    .sgpa-table,
+    .remarks-table,
+    .publish-date-table {
+        page-break-inside: avoid !important;
+        border: 2px solid #000000 !important;
+    }
+
+    /* Ensure table borders print */
+    .student-info th,
+    .student-info td,
+    .marks-table th,
+    .marks-table td,
+    .sgpa-table td,
+    .remarks-table td,
+    .publish-date-table th,
+    .publish-date-table td {
+        border: 1.5px solid #000000 !important;
+    }
+
+    /* Header text sizes */
+    .university-header h1 {
+        font-size: 18pt !important;
+        margin-bottom: 10px !important;
+    }
+
+    .semester-header {
+        font-size: 14pt !important;
+        margin-bottom: 15px !important;
+        color: #ff4400 !important;
+    }
+
+    /* Failed grade highlighting */
+    .marks-table td.failed-grade {
+        color: #ff0000 !important;
+        background-color: #ffebee !important;
+        font-weight: bold !important;
+    }
+
+    /* Watermark positioning */
+    .watermark {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        background: none !important;
+        border: 2px solid #000000 !important;
+        box-shadow: none !important;
+        z-index: 9999 !important;
+    }
+
+    /* Page settings */
+    @page {
+        size: A4 portrait;
+        margin: 1.5cm 1cm;
+    }
+
+    /* Cover page specific */
+    .cover-page {
+        page-break-after: always !important;
+        min-height: 297mm !important; /* A4 height */
+        padding: 2cm !important;
+    }
+
+    .university-header-large h1 {
+        font-size: 24pt !important;
+        margin-bottom: 30px !important;
+    }
+
+    .examination-title {
+        font-size: 18pt !important;
+        margin-bottom: 40px !important;
+        color: #ff4400 !important;
+    }
+
+    .cover-info-table {
+        width: 90% !important;
+        max-width: none !important;
+    }
+
+    .cover-info-table th,
+    .cover-info-table td {
+        padding: 12px !important;
+        font-size: 12pt !important;
+        border: 1.5px solid #000000 !important;
+    }
+
+    /* Show print-only elements */
+    .print-only {
+        display: block !important;
+        page-break-after: always !important;
+    }
+}
+
+/* Help Button Styles */
+.reg-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 300px;
+}
+
+.reg-input-container input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.help-button {
+    min-width: unset !important;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 0;
+    background: linear-gradient(45deg, #1565C0, #0D47A1);
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(21, 101, 192, 0.2);
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.help-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* Button Row */
+.button-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    gap: 25px;
+}
+
+/* Update just the failed grade color */
+.marks-table td.failed-grade {
+    color: #ff0000;
+    font-weight: bold;
+    background-color: #ffebee;
+}
+
+/* Make sure it shows in print */
+@media print {
+    .marks-table td.failed-grade {
+        color: #ff0000 !important;
+        background-color: #ffebee !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+#fetchButton {
+    padding: 18px 35px;
+    min-width: 250px;
+    font-size: 20px;
+}
+
+/* Print styles for header */
+@media print {
+    .university-header h1 {
+        font-size: 20pt;
+        letter-spacing: 1px;
+    }
+
+    .semester-header {
+        font-size: 14pt;
+        margin-top: 5px;
+    }
+}
+
+/* Cover Page Styles */
+.cover-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    padding: 40px;
+}
+
+.university-header-large {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.university-header-large h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+}
+
+.examination-title {
+    font-size: 24px;
+    color: #ff4400;
+    font-weight: bold;
+}
+
+.cover-info-table {
+    width: 80%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin-top: 40px;
+}
+
+.cover-info-table th,
+.cover-info-table td {
+    padding: 15px;
+    border: 1px solid #000000;
+    font-size: 16px;
+}
+
+.cover-info-table th {
+    background-color: #f5f5f5;
+    width: 40%;
+    text-align: right;
+}
+
+.cover-info-table td {
+    text-align: left;
+}
+
+/* Print styles for cover page */
+@media print {
+    .cover-page {
+        page-break-after: always;
+    }
+
+    .university-header-large h1 {
+        font-size: 28pt;
+    }
+
+    .examination-title {
+        font-size: 20pt;
+    }
+
+    .cover-info-table th,
+    .cover-info-table td {
+        font-size: 14pt;
+    }
+}
+
+/* Cover page styles */
+.print-only {
+    display: none;
+}
+
+@media print {
+    .print-only {
+        display: block;
+        page-break-after: always;
+    }
+
+    .cover-page {
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+    }
+
+    .university-header-large h1 {
+        font-size: 28pt;
+        margin-bottom: 20px;
+    }
+
+    .examination-title {
+        font-size: 20pt;
+        margin-bottom: 40px;
+    }
+
+    .cover-info-table {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .cover-info-table th,
+    .cover-info-table td {
+        padding: 15px;
+        font-size: 14pt;
+    }
+}
+
+/* Ensure proper scrolling in result area */
+#results {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Credit Button */
+#creditButton {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(45deg, #9C27B0, #7B1FA2);
+    color: white;
+    width: 30px;
+    height: 120px;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    cursor: move;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(156, 39, 176, 0.3);
+    transition: all 0.3s ease;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    padding: 0;
+    font-weight: 600;
+}
+
+#creditButton:hover {
+    width: 40px;
+    background: linear-gradient(45deg, #8E24AA, #6A1B9A);
+    box-shadow: 4px 0 15px rgba(156, 39, 176, 0.4);
+}
+
+/* Hide credit button during printing */
+@media print {
+    #creditButton {
+        display: none;
+    }
+}
+
+/* Mobile Optimization */
+@media (max-width: 1024px) {
+    .container {
+        width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .input-section {
+        padding: 20px;
+    }
+
+    select,
+    .reg-input-container input {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
+
+/* Add these styles for watermark handling */
+.watermark.print-watermark {
+    display: none; /* Hide by default */
+}
+
+@media print {
+    .watermark.print-watermark {
+        display: block; /* Show during print */
+    }
+}
+
+/* Optimize print styles */
+@media print {
+    /* Basic print optimization */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .print-ready {
+        width: 210mm;
+        background: white !important;
+    }
+
+    /* Hide non-printable elements */
+    .input-section,
+    #printButton,
+    #creditButton,
+    .message,
+    .button-container,
+    .button-row {
+        display: none !important;
+    }
+
+    /* Simplify result page */
+    .result-page {
+        break-inside: avoid;
+        page-break-after: always;
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 15px !important;
+    }
+
+    /* Simplify tables */
+    table {
+        break-inside: avoid;
+    }
+
+    /* Simplified watermark */
+    .watermark {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        border: 1px solid #000;
+        padding: 8px 15px;
+        background: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Page settings */
+    @page {
+        margin: 1.5cm 1cm;
+    }
+}
+
+/* Semester Grade Table */
+.semester-grade-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    border: 2px solid #000000;
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.semester-grade-table th,
+.semester-grade-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1.5px solid #000000;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.semester-grade-table th {
+    background-color: #f5f5f5;
+    background: linear-gradient(to right, #f8f9fa, #f5f5f5);
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* Grade value styles */
+.grade-value {
+    font-weight: 600;
+    color: #1565C0;
+}
+
+.grade-na {
+    color: #757575;
+    font-style: italic;
+}
+
+/* Print styles for semester grade table */
+@media print {
+    .semester-grade-table {
+        break-inside: avoid !important;
+        border: 2px solid #000000 !important;
+    }
+
+    .semester-grade-table th,
+    .semester-grade-table td {
+        border: 1.5px solid #000000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Print styles - consolidated */
+@media print {
+    /* Basic print settings */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm !important;
+    }
+
+    .container {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 5px !important;
+    }
+
+    /* Result pages */
+    .result-page {
+        page-break-before: always !important;
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        margin: 0 !important;
+        padding: 5mm !important;
+        background: white !important;
+        position: relative !important;
+        height: auto !important;
+    }
+
+    /* Page numbers */
+    .page-number {
+        position: absolute !important;
+        bottom: 5mm !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        font-size: 10pt !important;
+        color: #666 !important;
+    }
+
+    /* Tables */
+    table {
+        page-break-inside: avoid !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+        margin: 3mm 0 !important;
+    }
+
+    th, td {
+        padding: 1.5mm !important;
+        font-size: 10pt !important;
+    }
+
+    /* Watermark */
+    .watermark {
+        position: fixed !important;
+        bottom: 5mm !important;
+        right: 5mm !important;
+        font-size: 8pt !important;
+        padding: 1mm !important;
+        border: 0.2mm solid black !important;
+        background: white !important;
+        z-index: 9999 !important;
+    }
+
+    /* Hide UI elements */
+    .input-section,
+    #printButton,
+    #creditButton,
+    .message,
+    .help-button,
+    .button-container,
+    .button-row {
+        display: none !important;
+    }
+
+    /* Page settings */
+    @page {
+        size: A4 portrait;
+        margin: 5mm;
+    }
+
+    /* Results container */
+    #results {
+        display: block !important;
+    }
+}
