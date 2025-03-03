@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const semesterToBatchMapping = {
         '1st': ['2023', '2022'],
         '2nd': ['2024', '2023'],
-        '3rd': ['2023', '2022'],
+        '3rd': ['2023'],
         '4th': ['2023', '2022'],
         '5th': ['2023', '2022'],
         '6th': ['2024', '2023'],
