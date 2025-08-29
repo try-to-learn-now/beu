@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '5th': ['2023', '2022'],
         '6th': ['2024', '2023'],
         '7th': ['2024', '2023', '2022'],
-        '8th': ['2024', '2023']
+        '8th': ['2025','2024', '2023']
     };
 
     // Draggable Print Button Implementation
