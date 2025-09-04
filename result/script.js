@@ -248,24 +248,20 @@ document.addEventListener('DOMContentLoaded', () => {
             </table>`;
     }
 
-    // --- ### MODIFICATION: New "Year Back" / "Back Paper" Logic ### ---
     function formatFailedSubjects(failed, entry) {
         if (failed.length === 0) {
             return '<div class="pass-status">PASS</div>';
         }
 
-        let remarkText = 'Remarks: FAIL ( Back Paper )'; // Default remark for any failure
+        let remarkText = 'Remarks: FAIL ( Back Paper )'; 
 
-        // Find the Current CGPA from the semester grades data
         const cgpaData = entry.semester_grades.find(g => g.semester === 'Cur. CGPA');
         const cgpa = cgpaData ? parseFloat(cgpaData.sgpa) : 0;
 
-        // Apply the "Year Back" rule: CGPA is less than 5 AND it's not the 1st semester
         if (cgpa < 5 && entry.semester !== 'I') {
             remarkText = 'Remarks: FAIL ( Year Back )';
         }
 
-        // This part for displaying the list of failed subjects remains the same
         let rowsHtml = '';
         const subjectsPerRow = 3;
         for (let i = 0; i < failed.length; i += subjectsPerRow) {
@@ -274,9 +270,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${rowSubjects.map(s => `<div class="failed-subject">${s.name} (${s.type})</div>`).join('')}
             </div>`;
         }
-
+        
+        // --- ### MODIFICATION: Added margin-bottom to create space ### ---
         return `
-            <div style="color: #c62828; font-weight: bold; text-align: center;">${remarkText}</div>
+            <div style="color: #c62828; font-weight: bold; text-align: center; margin-bottom: 10px;">${remarkText}</div>
             ${rowsHtml}
         `;
     }
