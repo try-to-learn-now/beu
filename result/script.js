@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsContainer.innerHTML = '';
 
         if (!semester || !batch || regNo.length !== 11 || isNaN(regNo)) {
-            messageDiv.textContent = 'Please select valid options and enter a valid 11-digit registration number.';
+            messageDiv.textContent = 'Please select valid options and enter a valid registration number.';
             return;
         }
 
@@ -213,11 +213,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <table class="publish-date-table"><tr><th>Publish Date:</th><td>${entry.publish_date || 'N/A'}</td></tr></table>
                     
                     <div class="watermark">
-                        <a href="https://beu.pages.dev" target="_blank" class="watermark-print-trigger">
-                            Click Here To Print Result: BEU.pages.dev
+                        <a href="https://beumate.app" target="_blank" class="watermark-print-trigger">
+                            Click Here To Print Result: beumate.app
                         </a>
                     </div>
-                    </div>`;
+                </div>`;
             resultsContainer.innerHTML += resultHTML;
         });
         
@@ -249,11 +249,26 @@ document.addEventListener('DOMContentLoaded', () => {
             </table>`;
     }
 
+    // --- ### MODIFICATION 1: Failed Subject Layout Changed ### ---
     function formatFailedSubjects(failed) {
-        if (failed.length === 0) return '<div class="pass-status">PASS</div>';
+        if (failed.length === 0) {
+            return '<div class="pass-status">PASS</div>';
+        }
+
+        let rowsHtml = '';
+        const subjectsPerRow = 3; // Set max subjects per row
+
+        for (let i = 0; i < failed.length; i += subjectsPerRow) {
+            const rowSubjects = failed.slice(i, i + subjectsPerRow);
+            rowsHtml += `<div class="failed-subject-row">
+                ${rowSubjects.map(s => `<div class="failed-subject">${s.name} (${s.type})</div>`).join('')}
+            </div>`;
+        }
+
         return `
             <div style="color: #c62828; font-weight: bold; text-align: center;">Remarks: FAIL</div>
-            <div class="failed-subject-row">${failed.map(s => `<div class="failed-subject">${s.name} (${s.type})</div>`).join('')}</div>`;
+            ${rowsHtml}
+        `;
     }
 
     function showErrorMessage() {
@@ -273,15 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </table>`;
     }
 
-    // --- ### NEW & IMPROVED PRINT LOGIC ### ---
-    
-    // Attaches click event to all watermark links to trigger printing
+    // --- Print Logic ---
     function attachWatermarkPrintTriggers() {
         document.querySelectorAll('.watermark-print-trigger').forEach(link => {
             link.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevents the link from navigating
-                
-                // Programmatically click the main print button
+                event.preventDefault();
                 if (printButton) {
                     printButton.click(); 
                 }
@@ -289,29 +300,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // This function runs when the main Print button (or watermark link) is clicked
     function handlePrintRequest() {
-        // Only proceed if not in the middle of a drag
         if (isDragging) return;
-
         const results = document.getElementById('results');
         if (!results || !results.innerHTML.trim()) {
             messageDiv.textContent = 'Please fetch results before printing.';
             return;
         }
-
         prepareForPrint();
-        window.print(); // Triggers the browser's print dialog
+        window.print();
     }
 
-    // Sets up the document for printing
     function prepareForPrint() {
         const resultPages = resultsContainer.getElementsByClassName('result-page');
         Array.from(resultPages).forEach((page, index) => {
-            // Remove any old page number before adding a new one
             const oldPageNum = page.querySelector('.page-number');
             if (oldPageNum) oldPageNum.remove();
-
             const pageNumber = document.createElement('div');
             pageNumber.className = 'page-number';
             pageNumber.textContent = `Page ${index + 1} of ${resultPages.length}`;
@@ -320,21 +324,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('print-mode');
     }
 
-    // Cleans up the document after printing is finished or cancelled
     function cleanupAfterPrint() {
         document.body.classList.remove('print-mode');
         const pageNumbers = document.querySelectorAll('.page-number');
         pageNumbers.forEach(pn => pn.remove());
     }
 
-    // Attach the main event listener to the print button
     if (printButton) {
         printButton.addEventListener('click', handlePrintRequest);
     }
-    
-    // Attach the cleanup function to the 'afterprint' event
     window.addEventListener('afterprint', cleanupAfterPrint);
-
 
     // --- Other Functionality ---
     regNoHelp.addEventListener('click', () => {
@@ -343,4 +342,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('form')?.addEventListener('submit', (e) => e.preventDefault());
 });
-
