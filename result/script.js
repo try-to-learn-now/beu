@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'Cur. CGPA'].map(sem => `<td>${entry.semester_grades.find(g => g.semester === sem)?.sgpa || 'NA'}</td>`).join('')}
                         </tr>
                     </table>
-                    <table class="remarks-table"><tr><td>${formatFailedSubjects(failedSubjects)}</td></tr></table>
+                    <table class="remarks-table"><tr><td>${formatFailedSubjects(failedSubjects, entry)}</td></tr></table>
                     <table class="publish-date-table"><tr><th>Publish Date:</th><td>${entry.publish_date || 'N/A'}</td></tr></table>
                     
                     <div class="watermark">
@@ -221,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsContainer.innerHTML += resultHTML;
         });
         
-        // After rendering all results, attach the print triggers to the watermarks
         attachWatermarkPrintTriggers();
     }
     
@@ -249,15 +248,26 @@ document.addEventListener('DOMContentLoaded', () => {
             </table>`;
     }
 
-    // --- ### MODIFICATION 1: Failed Subject Layout Changed ### ---
-    function formatFailedSubjects(failed) {
+    // --- ### MODIFICATION: New "Year Back" / "Back Paper" Logic ### ---
+    function formatFailedSubjects(failed, entry) {
         if (failed.length === 0) {
             return '<div class="pass-status">PASS</div>';
         }
 
-        let rowsHtml = '';
-        const subjectsPerRow = 3; // Set max subjects per row
+        let remarkText = 'Remarks: FAIL ( Back Paper )'; // Default remark for any failure
 
+        // Find the Current CGPA from the semester grades data
+        const cgpaData = entry.semester_grades.find(g => g.semester === 'Cur. CGPA');
+        const cgpa = cgpaData ? parseFloat(cgpaData.sgpa) : 0;
+
+        // Apply the "Year Back" rule: CGPA is less than 5 AND it's not the 1st semester
+        if (cgpa < 5 && entry.semester !== 'I') {
+            remarkText = 'Remarks: FAIL ( Year Back )';
+        }
+
+        // This part for displaying the list of failed subjects remains the same
+        let rowsHtml = '';
+        const subjectsPerRow = 3;
         for (let i = 0; i < failed.length; i += subjectsPerRow) {
             const rowSubjects = failed.slice(i, i + subjectsPerRow);
             rowsHtml += `<div class="failed-subject-row">
@@ -266,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return `
-            <div style="color: #c62828; font-weight: bold; text-align: center;">Remarks: FAIL</div>
+            <div style="color: #c62828; font-weight: bold; text-align: center;">${remarkText}</div>
             ${rowsHtml}
         `;
     }
